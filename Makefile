@@ -47,7 +47,7 @@ init-dev:
 .PHONY: homework-i-run
 # Run homework.
 homework-i-run:
-	@python main.py
+	@python app.py
 
 .PHONY: homework-i-purge
 homework-i-purge:
