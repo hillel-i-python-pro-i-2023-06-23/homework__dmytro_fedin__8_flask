@@ -61,7 +61,9 @@ def get_mean() -> str:
     csv_processor = CsvProcessor()
     # Handle input - end.
 
+    # Handle logic - start.
     string_to_print = csv_processor.get_csv_data()
+    # Handle logic - end.
 
     return string_to_print
 
