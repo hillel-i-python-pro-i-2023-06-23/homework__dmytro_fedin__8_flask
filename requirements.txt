@@ -1,2 +1,5 @@
 # For web.
 flask==2.3.2
+
+# For better querry handeling.
+webargs==8.3.0
