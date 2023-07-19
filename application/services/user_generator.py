@@ -1,4 +1,5 @@
-from typing import NamedTuple, Iterator
+from typing import NamedTuple
+from collections.abc import Iterator
 from application.services import faker
 
 
@@ -19,10 +20,7 @@ class User(NamedTuple):
 
 
 def generate_user() -> User:
-    return User(
-        name=faker.first_name(),
-        email=faker.email()
-    )
+    return User(name=faker.first_name(), email=faker.email())
 
 
 def generate_users(amount: int) -> Iterator[User]:
