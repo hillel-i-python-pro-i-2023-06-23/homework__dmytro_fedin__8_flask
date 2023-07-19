@@ -3,6 +3,7 @@ from webargs import fields
 from webargs.flaskparser import use_args
 
 from application.services import print_output
+from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
 
 app = Flask(__name__)
@@ -42,6 +43,15 @@ def users_generate(args) -> str:
 
     item = "".join(users_formatted)
     return f"<ul>{item}</ul>"
+
+
+@app.route("/space")
+def get_astros() -> str | None:
+    # Handle input - start.
+    number_to_print = print_astros_number()
+    # Handle input - end.
+
+    return number_to_print
 
 
 if __name__ == "__main__":

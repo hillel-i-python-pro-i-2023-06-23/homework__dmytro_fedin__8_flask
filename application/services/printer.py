@@ -24,8 +24,6 @@ def print_output(file_name: str) -> str | None:
 
     logger.info(f"End reading file {file_name}")
 
-    # print(content_to_print)
-
     logger.info(f"File {file_name} printed.")
 
     return content_to_print
