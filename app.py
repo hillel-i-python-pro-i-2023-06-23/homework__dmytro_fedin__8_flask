@@ -2,14 +2,23 @@ from flask import Flask
 from webargs import fields
 from webargs.flaskparser import use_args
 
+from application.services import print_output
 from application.services.user_generator import generate_users
 
 app = Flask(__name__)
 
 
-# @app.route("/get-content/<str:file_name>")
-# def users_generate(file_name="some_input.txt") -> str:
-#     pass
+@app.route("/get-content")
+def print_file(file_name="some_input.txt") -> str | None:
+    # Handle input - start.
+    file_to_print = file_name
+    # Handle input - end.
+
+    # Handle logic - start.
+    output = print_output(file_to_print)
+    # Handle logic - end.
+
+    return output
 
 
 @app.route("/generate-users")

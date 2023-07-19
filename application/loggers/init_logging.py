@@ -1,7 +1,7 @@
 import logging
 import os
 
-from app.config import LOGS_OUTPUT_DIR
+from application.services.config import LOGS_OUTPUT_DIR
 
 # Set path to log file.
 log_file = os.path.join(LOGS_OUTPUT_DIR, "app.log")
