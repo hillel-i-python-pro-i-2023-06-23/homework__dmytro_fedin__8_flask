@@ -5,6 +5,7 @@ from webargs.flaskparser import use_args
 from application.services import print_output
 from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
+from application.services.csv_processor import CsvProcessor
 
 app = Flask(__name__)
 
@@ -52,6 +53,17 @@ def get_astros() -> str | None:
     # Handle input - end.
 
     return number_to_print
+
+
+@app.route("/mean")
+def get_mean() -> str:
+    # Handle input - start.
+    csv_processor = CsvProcessor()
+    # Handle input - end.
+
+    string_to_print = csv_processor.get_csv_data()
+
+    return string_to_print
 
 
 if __name__ == "__main__":

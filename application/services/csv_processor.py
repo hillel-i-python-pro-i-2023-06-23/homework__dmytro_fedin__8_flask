@@ -39,11 +39,10 @@ class CsvProcessor:
 
         return kg
 
-    def print_csv_data(self) -> None:
+    def get_csv_data(self) -> str:
         self.get_data_frame()
 
         height = self.get_mean_height()
         weight = self.get_mean_weight()
-        print(
-            f'Mean height is {"%.1f" % height} cm. Mean weight is {"%.1f" % weight} kg.'
-        )
+        output = f'Mean height is {"%.1f" % height} cm. Mean weight is {"%.1f" % weight} kg.'
+        return output
