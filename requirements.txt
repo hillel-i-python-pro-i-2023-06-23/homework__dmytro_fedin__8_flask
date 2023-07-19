@@ -3,3 +3,6 @@ flask==2.3.2
 
 # For better querry handeling.
 webargs==8.3.0
+
+# For name generation.
+faker==19.1.0
