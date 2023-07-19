@@ -7,9 +7,14 @@ from application.services.user_generator import generate_users
 app = Flask(__name__)
 
 
-@app.route("/users/generate")
+# @app.route("/get-content/<str:file_name>")
+# def users_generate(file_name="some_input.txt") -> str:
+#     pass
+
+
+@app.route("/generate-users")
 @use_args({"amount": fields.Int(missing=20)}, location="query")
-def users_generate(args):
+def users_generate(args) -> str:
     # Handle input - start.
     amount = args["amount"]
     # Handle input - end.
