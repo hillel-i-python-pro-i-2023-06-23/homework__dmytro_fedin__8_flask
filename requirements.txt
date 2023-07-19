@@ -12,6 +12,8 @@ requests==2.31.0
 
 # To process csv
 pandas==2.0.3
+
+# To have pandas worked
 numpy==1.25.1
 
 # [code_style]-[BEGIN]
