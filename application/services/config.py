@@ -1,8 +1,7 @@
-import pathlib
-from typing import Final
+from pathlib import Path
 
 # Set directories to get services.
-ROOT_DIR: Final[pathlib.Path] = pathlib.Path(__file__).parents[1]
-FILES_INPUT_DIR: Final[pathlib.Path] = ROOT_DIR.joinpath("source")
-LOGS_OUTPUT_DIR: Final[pathlib.Path] = ROOT_DIR.joinpath("logs")
-FILES_OUTPUT_DIR: Final[pathlib.Path] = ROOT_DIR.joinpath("output")
+BASE_DIR = Path(__file__).resolve().parent.parent
+FILES_INPUT_DIR = BASE_DIR.joinpath("source")
+LOGS_OUTPUT_DIR = BASE_DIR.joinpath("logs")
+FILES_OUTPUT_DIR= BASE_DIR.joinpath("output")
