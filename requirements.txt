@@ -14,6 +14,7 @@ requests==2.31.0
 pandas==2.0.3
 
 # To have pandas worked
+# Not final bu stable
 numpy==1.24.4
 
 # [code_style]-[BEGIN]
