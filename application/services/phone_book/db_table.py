@@ -15,7 +15,7 @@ def create_table() -> None:
             )
 
 
-def add_user(args: dict)->str:
+def add_item(args: dict)->str:
     with DBConnection() as connection:
         with connection:
             connection.execute(
@@ -40,3 +40,5 @@ def read_all():
             f'{item["pk"]}: {item["name"]} - {item["number"]}' for item in items
         ]
     )
+
+

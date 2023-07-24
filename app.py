@@ -10,9 +10,10 @@ from application.services.csv_processor import CsvProcessor
 # For phonebook
 from application.services.phone_book import (
     create_table,
-    add_user,
+    add_item,
     read_all
 )
+from application.services.phone_book.db_manager import DBConnection
 
 app = Flask(__name__)
 
@@ -85,7 +86,7 @@ def get_mean() -> str:
 )
 def phonebook_user_add(args):
 
-    add_user(args)
+    add_item(args)
 
     return "OK"
 
@@ -93,6 +94,19 @@ def phonebook_user_add(args):
 @app.route("/item/read-all")
 def phonebook_read_all():
     return read_all()
+
+
+@app.route("/item/read/<int:pk>")
+def phonebook_read_item(pk: int):
+    with DBConnection() as connection:
+        item = connection.execute(
+            "SELECT * FROM phone_book WHERE (pk=:pk);",
+            {
+                "pk": pk,
+            }
+        ).fetchone()
+
+    return f'{item["pk"]}: {item["name"]} - {item["number"]}'
 
 
 # Create db on app run
