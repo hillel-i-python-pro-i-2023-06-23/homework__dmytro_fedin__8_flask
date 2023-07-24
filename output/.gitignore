@@ -1,2 +1,5 @@
-/users.csv
-!/.gitignore
+# Ignore all files in the folder
+*
+
+# Include the .gitignore file itself
+!.gitignore
