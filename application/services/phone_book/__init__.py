@@ -4,4 +4,5 @@ from .db_table import (
     add_item,
     read_all,
     delete_item,
+    read_item
 )

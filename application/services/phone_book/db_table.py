@@ -1,3 +1,5 @@
+import sqlite3
+
 from application.services.phone_book import DBConnection
 
 
@@ -38,6 +40,18 @@ def read_all()->str:
             f'{item["pk"]}: {item["name"]} - {item["number"]}' for item in items
         ]
     )
+
+
+def read_item(arg: int)->sqlite3.Row | None:
+    with DBConnection() as connection:
+        item = connection.execute(
+            "SELECT * FROM phone_book WHERE (pk=:arg);",
+            {
+                "arg": arg,
+            }
+        ).fetchone()
+
+        return item
 
 
 def delete_item(arg: int)->None:

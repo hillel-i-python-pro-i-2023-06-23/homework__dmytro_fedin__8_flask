@@ -5,17 +5,19 @@ from flask import (
 from webargs import fields
 from webargs.flaskparser import use_args
 
+# For input/output services
 from application.services import print_output
 from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
 from application.services.csv_processor import CsvProcessor
 
-# For phonebook
+# For phonebook service
 from application.services.phone_book import (
     create_table,
     add_item,
     read_all,
-    delete_item
+    delete_item,
+    read_item
 )
 from application.services.phone_book.db_manager import DBConnection
 
@@ -101,14 +103,8 @@ def phonebook_read_all():
 
 
 @app.route("/item/read/<int:pk>")
-def phonebook_read_item(pk: int):
-    with DBConnection() as connection:
-        item = connection.execute(
-            "SELECT * FROM phone_book WHERE (pk=:pk);",
-            {
-                "pk": pk,
-            }
-        ).fetchone()
+def phonebook_read_item(pk: int)->str:
+    item = read_item(pk)
 
     return f'{item["pk"]}: {item["name"]} - {item["number"]}'
 
