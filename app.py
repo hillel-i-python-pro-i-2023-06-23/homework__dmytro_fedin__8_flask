@@ -1,4 +1,7 @@
-from flask import Flask
+from flask import (
+    Flask,
+    Response
+)
 from webargs import fields
 from webargs.flaskparser import use_args
 
@@ -107,6 +110,48 @@ def phonebook_read_item(pk: int):
         ).fetchone()
 
     return f'{item["pk"]}: {item["name"]} - {item["number"]}'
+
+
+@app.route("/item/update/<int:pk>")
+@use_args(
+    {
+        "name": fields.Str(), "number": fields.Str()
+    },
+    location="query"
+)
+def item_update(
+        args,
+        pk: int
+):
+    with DBConnection() as connection:
+        with connection:
+            name = args.get("name")
+            number = args.get("number")
+            if name is None and number is None:
+                return Response(
+                    "At least one arg needed",
+                    status=400,
+                )
+
+            args_for_request = []
+
+            if name is not None:
+                args_for_request.append("name=:name")
+            if number is not None:
+                args_for_request.append("number=:number")
+
+            args_2 = ", ".join(args_for_request)
+
+            connection.execute(
+                f"UPDATE phone_book SET {args_2} WHERE pk=:pk;",
+                {
+                    "pk": pk,
+                    "name": name,
+                    "number": number,
+                }
+            )
+
+    return "OK"
 
 
 # Create db on app run
