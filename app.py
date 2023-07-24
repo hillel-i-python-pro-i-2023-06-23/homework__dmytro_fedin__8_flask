@@ -6,7 +6,7 @@ from application.services import print_output
 from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
 from application.services.csv_processor import CsvProcessor
-from application.services.phone_book import create_table
+from application.services.phone_book import create_table, add_user
 
 app = Flask(__name__)
 
@@ -69,6 +69,23 @@ def get_mean() -> str:
     return string_to_print
 
 
+@app.route("/user/add")
+@use_args(
+    {
+        "id": fields.Int(required=True),
+        "name": fields.Str(required=True),
+        "number": fields.Str(required=True)
+    },
+    location="query"
+)
+def phonebook_user_add(args):
+
+    add_user(args)
+
+    return "OK"
+
+
+# Create db on app run
 create_table()
 
 if __name__ == "__main__":
