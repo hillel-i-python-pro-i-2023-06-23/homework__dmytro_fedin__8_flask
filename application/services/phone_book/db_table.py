@@ -15,7 +15,7 @@ def create_table() -> None:
             )
 
 
-def add_user(args: dict):
+def add_user(args: dict)->str:
     with DBConnection() as connection:
         with connection:
             connection.execute(
@@ -27,4 +27,4 @@ def add_user(args: dict):
                 }
             )
 
-    return "OK"
+    return "Item added"
