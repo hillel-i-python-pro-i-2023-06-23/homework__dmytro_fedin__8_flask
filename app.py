@@ -14,7 +14,8 @@ from application.services.csv_processor import CsvProcessor
 from application.services.phone_book import (
     create_table,
     add_item,
-    read_all
+    read_all,
+    delete_item
 )
 from application.services.phone_book.db_manager import DBConnection
 
@@ -154,16 +155,22 @@ def item_update(
     return "OK"
 
 
+# @app.route("/item/delete/<int:pk>")
+# def phonebook_delete_item(pk: int):
+#     with DBConnection() as connection:
+#         with connection:
+#             connection.execute(
+#                 "DELETE FROM phone_book WHERE (pk=:pk);",
+#                 {
+#                     "pk": pk,
+#                 }
+#             )
+#
+#     return "OK"
 @app.route("/item/delete/<int:pk>")
-def phonebook_delete_item(pk: int):
-    with DBConnection() as connection:
-        with connection:
-            connection.execute(
-                "DELETE FROM phone_book WHERE (pk=:pk);",
-                {
-                    "pk": pk,
-                }
-            )
+def phonebook_delete_item(pk: int)->str:
+
+    delete_item(pk)
 
     return "OK"
 

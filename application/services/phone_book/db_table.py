@@ -42,3 +42,14 @@ def read_all():
     )
 
 
+def delete_item(arg: int)->None:
+    with DBConnection() as connection:
+        with connection:
+            connection.execute(
+                "DELETE FROM phone_book WHERE (pk=:arg);",
+                {
+                    "arg": arg,
+                }
+            )
+
+    # return "Item deleted"
