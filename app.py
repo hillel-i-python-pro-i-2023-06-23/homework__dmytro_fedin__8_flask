@@ -1,3 +1,4 @@
+# For web
 from flask import (
     Flask,
     Response
@@ -17,7 +18,8 @@ from application.services.phone_book import (
     add_item,
     read_all,
     delete_item,
-    read_item
+    read_item,
+    update_item
 )
 from application.services.phone_book.db_manager import DBConnection
 
@@ -91,7 +93,6 @@ def get_mean() -> str:
     location="query"
 )
 def phonebook_user_add(args: dict[fields.Str])->str:
-
     add_item(args)
 
     return "OK"
@@ -99,13 +100,11 @@ def phonebook_user_add(args: dict[fields.Str])->str:
 
 @app.route("/item/read-all")
 def phonebook_read_all()->str:
-
     return read_all()
 
 
 @app.route("/item/read/<int:pk>")
 def phonebook_read_item(pk: int)->str:
-
     item = read_item(pk)
 
     return f'{item["pk"]}: {item["name"]} - {item["number"]}'
@@ -118,44 +117,14 @@ def phonebook_read_item(pk: int)->str:
     },
     location="query"
 )
-def item_update(
-        args,
-        pk: int
-):
-    with DBConnection() as connection:
-        with connection:
-            name = args.get("name")
-            number = args.get("number")
-            if name is None and number is None:
-                return Response(
-                    "At least one arg needed",
-                    status=400,
-                )
-
-            args_for_request = []
-
-            if name is not None:
-                args_for_request.append("name=:name")
-            if number is not None:
-                args_for_request.append("number=:number")
-
-            args_2 = ", ".join(args_for_request)
-
-            connection.execute(
-                f"UPDATE phone_book SET {args_2} WHERE pk=:pk;",
-                {
-                    "pk": pk,
-                    "name": name,
-                    "number": number,
-                }
-            )
+def item_update(args: dict[str], pk: int)->str | Response:
+    update_item(args, pk)
 
     return "OK"
 
 
 @app.route("/item/delete/<int:pk>")
 def phonebook_delete_item(pk: int)->str:
-
     delete_item(pk)
 
     return "OK"

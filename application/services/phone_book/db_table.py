@@ -1,5 +1,7 @@
 import sqlite3
 
+from flask import Response
+
 from application.services.phone_book import DBConnection
 
 
@@ -61,5 +63,35 @@ def delete_item(arg: int)->None:
                 "DELETE FROM phone_book WHERE (pk=:arg);",
                 {
                     "arg": arg,
+                }
+            )
+
+
+def update_item(args: dict[str], pk: int)->None:
+    with DBConnection() as connection:
+        with connection:
+            name = args.get("name")
+            number = args.get("number")
+            if name is None and number is None:
+                return Response(
+                    "At least one arg needed",
+                    status=400,
+                )
+
+            args_for_request = []
+
+            if name is not None:
+                args_for_request.append("name=:name")
+            if number is not None:
+                args_for_request.append("number=:number")
+
+            args_2 = ", ".join(args_for_request)
+
+            connection.execute(
+                f"UPDATE phone_book SET {args_2} WHERE pk=:pk;",
+                {
+                    "pk": pk,
+                    "name": name,
+                    "number": number,
                 }
             )
