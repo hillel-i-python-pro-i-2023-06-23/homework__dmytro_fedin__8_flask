@@ -7,7 +7,7 @@ def create_table() -> None:
             connection.execute(
                 """
                 CREATE TABLE IF NOT EXISTS phone_book (
-                    id INTEGER PRIMARY KEY,
+                    pk INTEGER PRIMARY KEY,
                     name TEXT NOT NULL,
                     number TEXT NOT NULL
                 )
@@ -19,9 +19,8 @@ def add_user(args: dict)->str:
     with DBConnection() as connection:
         with connection:
             connection.execute(
-                'INSERT INTO phone_book (id, name, number) VALUES (:id, :name, :number);',
+                'INSERT INTO phone_book (name, number) VALUES (:name, :number);',
                 {
-                    "id": args["id"],
                     "name": args["name"],
                     "number": args["number"]
                 }
