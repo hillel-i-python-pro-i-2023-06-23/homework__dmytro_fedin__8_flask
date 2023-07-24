@@ -10,3 +10,4 @@ services:
       - ./source:/wd/source:rw
       - ./logs:/wd/logs:rw
       - ./output:/wd/output:rw
+      - ./db:/wd/db:rw
