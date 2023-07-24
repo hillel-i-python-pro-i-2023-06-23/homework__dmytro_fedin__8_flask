@@ -15,7 +15,7 @@ def create_table() -> None:
             )
 
 
-def add_item(args: dict)->str:
+def add_item(args: dict)->None:
     with DBConnection() as connection:
         with connection:
             connection.execute(
@@ -26,10 +26,8 @@ def add_item(args: dict)->str:
                 }
             )
 
-    return "Item added"
 
-
-def read_all():
+def read_all()->str:
     with DBConnection() as connection:
         items = connection.execute(
             "SELECT * FROM phone_book;"
@@ -51,5 +49,3 @@ def delete_item(arg: int)->None:
                     "arg": arg,
                 }
             )
-
-    # return "Item deleted"
