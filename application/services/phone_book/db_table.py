@@ -67,7 +67,7 @@ def delete_item(arg: int)->None:
             )
 
 
-def update_item(args: dict[str], pk: int)->None:
+def update_item(args: dict[str], pk: int)->None | Response:
     with DBConnection() as connection:
         with connection:
             name = args.get("name")

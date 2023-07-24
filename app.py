@@ -118,9 +118,9 @@ def phonebook_read_item(pk: int)->str:
     location="query"
 )
 def item_update(args: dict[str], pk: int)->str | Response:
-    update_item(args, pk)
+    result = update_item(args, pk)
 
-    return "OK"
+    return result if result is not None else "OK"
 
 
 @app.route("/item/delete/<int:pk>")
