@@ -154,6 +154,20 @@ def item_update(
     return "OK"
 
 
+@app.route("/item/delete/<int:pk>")
+def phonebook_delete_item(pk: int):
+    with DBConnection() as connection:
+        with connection:
+            connection.execute(
+                "DELETE FROM phone_book WHERE (pk=:pk);",
+                {
+                    "pk": pk,
+                }
+            )
+
+    return "OK"
+
+
 # Create db on app run
 create_table()
 
