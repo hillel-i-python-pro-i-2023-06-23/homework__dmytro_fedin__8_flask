@@ -90,7 +90,7 @@ def get_mean() -> str:
     },
     location="query"
 )
-def phonebook_user_add(args):
+def phonebook_user_add(args: dict[fields.Str])->str:
 
     add_item(args)
 
@@ -98,12 +98,14 @@ def phonebook_user_add(args):
 
 
 @app.route("/item/read-all")
-def phonebook_read_all():
+def phonebook_read_all()->str:
+
     return read_all()
 
 
 @app.route("/item/read/<int:pk>")
 def phonebook_read_item(pk: int)->str:
+
     item = read_item(pk)
 
     return f'{item["pk"]}: {item["name"]} - {item["number"]}'
