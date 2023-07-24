@@ -27,3 +27,16 @@ def add_user(args: dict)->str:
             )
 
     return "Item added"
+
+
+def read_all():
+    with DBConnection() as connection:
+        items = connection.execute(
+            "SELECT * FROM phone_book;"
+        ).fetchall()
+
+    return "<br>".join(
+        [
+            f'{item["pk"]}: {item["name"]} - {item["number"]}' for item in items
+        ]
+    )

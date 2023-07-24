@@ -6,7 +6,13 @@ from application.services import print_output
 from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
 from application.services.csv_processor import CsvProcessor
-from application.services.phone_book import create_table, add_user, DBConnection
+
+# For phonebook
+from application.services.phone_book import (
+    create_table,
+    add_user,
+    read_all
+)
 
 app = Flask(__name__)
 
@@ -85,17 +91,10 @@ def phonebook_user_add(args):
 
 
 @app.route("/item/read-all")
-def items_read_all():
-    with DBConnection() as connection:
-        items = connection.execute(
-            "SELECT * FROM phone_book;"
-        ).fetchall()
+def phonebook_read_all():
+    return read_all()
 
-    return "<br>".join(
-        [
-            f'{item["pk"]}: {item["name"]} - {item["number"]}' for item in items
-        ]
-    )
+
 # Create db on app run
 create_table()
 
