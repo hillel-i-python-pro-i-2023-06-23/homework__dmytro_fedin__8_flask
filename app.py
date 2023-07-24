@@ -21,11 +21,12 @@ from application.services.phone_book import (
     read_item,
     update_item
 )
-from application.services.phone_book.db_manager import DBConnection
 
 app = Flask(__name__)
 
 
+# For input/output services
+# To get some output from file
 @app.route("/get-content")
 def print_file(file_name="some_input.txt") -> str | None:
     # Handle input - start.
@@ -39,6 +40,7 @@ def print_file(file_name="some_input.txt") -> str | None:
     return output
 
 
+# To generate users
 @app.route("/generate-users")
 @use_args({"amount": fields.Int(missing=20)}, location="query")
 def users_generate(args) -> str:
@@ -62,6 +64,7 @@ def users_generate(args) -> str:
     return f"<ul>{item}</ul>"
 
 
+# To count astronauts
 @app.route("/space")
 def get_astros() -> str | None:
     # Handle input - start.
@@ -71,6 +74,7 @@ def get_astros() -> str | None:
     return number_to_print
 
 
+# To get mean from data
 @app.route("/mean")
 def get_mean() -> str:
     # Handle input - start.
@@ -84,6 +88,8 @@ def get_mean() -> str:
     return string_to_print
 
 
+# For phonebook application
+# Add item to phonebook
 @app.route("/item/add")
 @use_args(
     {
@@ -98,11 +104,13 @@ def phonebook_user_add(args: dict[fields.Str])->str:
     return "OK"
 
 
+# Read all items from phonebook
 @app.route("/item/read-all")
 def phonebook_read_all()->str:
     return read_all()
 
 
+# Read item from phonebook
 @app.route("/item/read/<int:pk>")
 def phonebook_read_item(pk: int)->str:
     item = read_item(pk)
@@ -110,6 +118,7 @@ def phonebook_read_item(pk: int)->str:
     return f'{item["pk"]}: {item["name"]} - {item["number"]}'
 
 
+# Update item from phonebook
 @app.route("/item/update/<int:pk>")
 @use_args(
     {
@@ -123,6 +132,7 @@ def item_update(args: dict[str], pk: int)->str | Response:
     return result if result is not None else "OK"
 
 
+# Delete item from phonebook
 @app.route("/item/delete/<int:pk>")
 def phonebook_delete_item(pk: int)->str:
     delete_item(pk)
