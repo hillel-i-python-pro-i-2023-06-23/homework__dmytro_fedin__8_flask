@@ -6,6 +6,7 @@ from application.services import print_output
 from application.services.json_handler import print_astros_number
 from application.services.user_generator import generate_users
 from application.services.csv_processor import CsvProcessor
+from application.services.phone_book import create_table
 
 app = Flask(__name__)
 
@@ -67,6 +68,8 @@ def get_mean() -> str:
 
     return string_to_print
 
+
+create_table()
 
 if __name__ == "__main__":
     app.run()
