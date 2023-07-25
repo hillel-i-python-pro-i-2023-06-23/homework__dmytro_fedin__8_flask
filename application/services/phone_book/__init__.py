@@ -6,6 +6,5 @@ from .db_table import (
     read_all,
     delete_item,
     read_item,
-    update_item,
     update_item
 )
