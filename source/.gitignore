@@ -1,2 +1,7 @@
+# Ignore all files in the folder
+*
+
+# Include the .gitignore file itself
 !/.gitignore
-!"some_input.txt"
+# Include the some_input.txt file
+!some_input.txt
