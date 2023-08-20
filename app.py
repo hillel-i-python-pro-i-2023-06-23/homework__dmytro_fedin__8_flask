@@ -23,7 +23,9 @@ def print_file(file_name="some_input.txt") -> str | None:
     return output
 
 
+# http://172.22.0.2:5000/generate-users
 @app.route("/generate-users")
+# http://172.22.0.2:5000/generate-users?amount=2
 @use_args({"amount": fields.Int(missing=20)}, location="query")
 def users_generate(args) -> str:
     # Handle input - start.
