@@ -40,6 +40,7 @@ def print_file(file_name="some_input.txt") -> str | None:
     return output
 
 
+
 # To generate users
 @app.route("/generate-users")
 @use_args({"amount": fields.Int(missing=20)}, location="query")
